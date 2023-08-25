@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,6 +27,17 @@ public class BasicItemController {
 		List<Item> items = itemRepository.findAll();
 		model.addAttribute("items", items);
 		return "basic/items";
+	}
+
+	/*
+	 * 상품 상세
+	 */
+	@GetMapping("/{itemId}")
+	public String item(@PathVariable long itemId, Model model) {
+		Item item = itemRepository.findById(itemId);
+		model.addAttribute("item", item);
+		return "basic/item";
+
 	}
 
 	/**
